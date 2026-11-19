@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Всё о тортах 🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  /* ===== RESET & BASE ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #fff5e4;
+    color: #3a2418;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased; /* Для четкости шрифтов на Mac/iOS */
+  }
+
+  h1, h2, h3 { font-family: 'Playfair Display', serif; }
+  img { max-width: 100%; height: auto; }
+
+  /* ===== HERO SECTION ===== */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffd6e0 0%, #ffe8d6 50%, #f5c6a5 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Оптимизированная анимация фона */
+  .hero::before {
+    content: '🎂 🍰 🧁 🍩 🎂 🍰 🧁 🍩';
+    position: absolute;
+    font-size: clamp(2rem, 5vw, 3rem); /* Адаптивный размер */
+    opacity: 0.15;
+    white-space: nowrap;
+    animation: float 25s linear infinite;
+    top: 15%;
+    pointer-events: none; /* Чтобы не мешало кликам */
+  }
+
+  @keyframes float {
+    from { transform: translateX(100vw); }
+    to { transform: translateX(-100%); }
+  }
+
+  .hero h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3rem, 12vw, 7rem);
+    color: #5c3a21;
+    text-shadow: 2px 2px 0 #fff, 4px 4px 10px rgba(92,58,33,0.2);
+    margin-bottom: 10px;
+    animation: fadeDown 1s ease forwards;
+    z-index: 2;
+  }
+
+  .hero .subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(0.9rem, 3vw, 1.5rem);
+    color: #8b5a3c;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    animation: fadeUp 1s ease 0.3s forwards;
+    opacity: 0; /* Скрыто до начала анимации */
+    z-index: 2;
+  }
+
+  /* ===== NAV BUTTONS ===== */
+  .nav-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    animation: fadeUp 1s ease 0.6s forwards;
+    opacity: 0;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .btn {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff9eb5, #d4a574);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(212,165,116,0.3);
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    display: inline-block;
+    /* Улучшение для тач-устройств */
+    touch-action: manipulation; 
+  }
+
+  .btn:hover, .btn:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(92,58,33,0.2);
+    background: linear-gradient(135deg, #d4a574, #5c3a21);
+    outline: none;
+  }
+
+  /* Адаптация кнопок для мобильных */
+  @media (max-width: 600px) {
+    .nav-buttons {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 0 20px;
+    }
+    .btn {
+      text-align: center;
+      padding: 14px;
+    }
+  }
+
+  @keyframes fadeDown { from { opacity:0; transform: translateY(-30px);} to {opacity:1; transform:none;} }
+  @keyframes fadeUp   { from { opacity:0; transform: translateY(30px);}  to {opacity:1; transform:none;} }
+
+  /* ===== SECTIONS GENERAL ===== */
+  section {
+    padding: 60px 20px; /* Уменьшен отступ для мобильных */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  @media (min-width: 768px) {
+    section { padding: 100px 20px; }
+  }
+
+  .section-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    color: #5c3a21;
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #8b5a3c;
+    font-style: italic;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+  }
+
+  /* ===== CARDS GRID ===== */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 25px;
+    box-shadow: 0 10px 30px rgba(92,58,33,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-top: 5px solid #ff9eb5;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(92,58,33,0.15);
+  }
+
+  .card .icon { font-size: 2.5rem; margin-bottom: 15px; }
+  .card h3 { color: #5c3a21; font-size: 1.4rem; margin-bottom: 12px; }
+  .card p { color: #6b4a3a; font-size: 0.95rem; }
+
+  /* ===== RECIPES ACCORDION ===== */
+  #recipes { background: linear-gradient(180deg, #fff5e4, #ffe8d6); }
+
+  .recipe {
+    background: #fff;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(92,58,33,0.05);
+    border: 1px solid rgba(212,165,116,0.2);
+  }
+
+  .recipe-header {
+    padding: 20px;
+    background: linear-gradient(135deg, #ff9eb5, #d4a574);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    user-select: none;
+  }
+
+  .recipe-header .arrow { transition: transform 0.3s; font-size: 1.2rem; }
+  .recipe.open .recipe-header .arrow { transform: rotate(180deg); }
+
+  .recipe-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+    padding: 0 20px;
+    background: #fff;
+  }
+
+  .recipe.open .recipe-body {
+    /* JS будет вычислять точную высоту */
+    transition: max-height 0.5s ease-in-out; 
+  }
+
+  .recipe-content-inner {
+    padding: 25px 10px;
+  }
+
+  .recipe-body h4 {
+    color: #5c3a21;
+    margin: 15px 0 8px;
+    font-family: 'Playfair Display', serif;
+  }
+  .recipe-body ul, .recipe-body ol { padding-left: 20px; color: #6b4a3a; }
+  .recipe-body li { margin-bottom: 6px; font-size: 0.95rem; }
+
+  /* ===== FACTS ===== */
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .fact {
+    background: linear-gradient(135deg, #fff, #ffe8d6);
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 5px solid #d4a574;
+    font-style: italic;
+    color: #5c3a21;
+    box-shadow: 0 4px 10px rgba(92,58,33,0.05);
+  }
+  .fact::before {
+    content: '✨';
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #5c3a21;
+    color: #ffe8d6;
+    text-align: center;
+    padding: 40px 20px;
+    font-family: 'Playfair Display', serif;
+  }
+  footer .heart { color: #ff9eb5; }
+
+  /* ===== MEDIA QUERIES FIXES ===== */
+  /* Исправление для очень маленьких экранов */
+  @media (max-width: 350px) {
+    .hero h1 { font-size: 2.5rem; }
+    .section-title { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <h1>Всё о тортах</h1>
+  <p class="subtitle">— сладкое путешествие в мир десертов —</p>
+  <nav class="nav-buttons">
+    <button class="btn" onclick="scrollToSection('about')">📖 О тортах</button>
+    <button class="btn" onclick="scrollToSection('types')">🎂 Виды</button>
+    <button class="btn" onclick="scrollToSection('recipes')">👩‍🍳 Рецепты</button>
+    <button class="btn" onclick="scrollToSection('facts')">✨ Факты</button>
+  </nav>
+</header>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <h2 class="section-title">История тортов</h2>
+  <p class="section-subtitle">от древности до наших дней</p>
+  <div class="cards">
+    <div class="card">
+      <div class="icon">🏛️</div>
+      <h3>Древний мир</h3>
+      <p>Первые прообразы тортов появились в Древнем Египте и Риме — это были сладкие хлебцы с мёдом, орехами и фруктами.</p>
+    </div>
+    <div class="card">
+      <div class="icon">👑</div>
+      <h3>Средневековье</h3>
+      <p>В Европе торты стали символом богатства. Их подавали на королевских пирах, украшая засахаренными фруктами и позолотой.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🎉</div>
+      <h3>XIX–XX век</h3>
+      <p>С появлением разрыхлителя торты стали доступны каждому. Появились знаменитые «Наполеон», «Пражский» и «Киевский».</p>
+    </div>
+    <div class="card">
+      <div class="icon">🌍</div>
+      <h3>Современность</h3>
+      <p>Сегодня торты — это искусство: муссовые, веганские, безглютеновые, с необычными вкусами вроде лаванды или матчи.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TYPES ===== -->
+<section id="types">
+  <h2 class="section-title">Виды тортов</h2>
+  <p class="section-subtitle">выбирай свой любимый</p>
+  <div class="cards">
+    <div class="card">
+      <div class="icon">🍫</div>
+      <h3>Шоколадные</h3>
+      <p>Классика: «Пражский», «Захер», «Чёрный лес». Каждый кусочек тает во рту.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🍯</div>
+      <h3>Медовые</h3>
+      <p>Нежные коржи с ароматом мёда и сметанным кремом. «Медовик» — вкус детства.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🍰</div>
+      <h3>Бисквитные</h3>
+      <p>Воздушные, лёгкие, с ягодами, кремом и фруктами. Идеальны для праздников.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🥥</div>
+      <h3>Муссовые</h3>
+      <p>Современная элегантность: зеркальная глазурь, нежный мусс и хрустящий слой.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🥕</div>
+      <h3>Морковные</h3>
+      <p>Пряные, с орехами и сливочным сыром. Любимый торт в Англии и США.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🍓</div>
+      <h3>Фруктовые</h3>
+      <p>Свежие ягоды, лёгкий крем и тонкие коржи — идеальный летний десерт.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RECIPES ===== -->
+<section id="recipes">
+  <h2 class="section-title">Рецепты</h2>
+  <p class="section-subtitle">приготовь свой шедевр</p>
+
+  <div class="recipe">
+    <div class="recipe-header" onclick="toggleRecipe(this)">
+      <span>🍯 Медовик классический</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="recipe-body">
+      <div class="recipe-content-inner">
+        <h4>Ингредиенты:</h4>
+        <ul>
+          <li>Мёд — 3 ст. л.</li>
+          <li>Сахар — 1 стакан</li>
+          <li>Сливочное масло — 100 г</li>
+          <li>Яйца — 2 шт.</li>
+          <li>Мука — 3 стакана</li>
+          <li>Сметана — 500 г (для крема)</li>
+        </ul>
+        <h4>Приготовление:</h4>
+        <ol>
+          <li>Растопи мёд с сахаром и маслом на водяной бане.</li>
+          <li>Добавь соду, яйца и постепенно вводи муку.</li>
+          <li>Выпекай тонкие коржи при 180°C по 5–7 минут.</li>
+          <li>Смажь каждый корж сметанным кремом.</li>
+          <li>Оставь пропитаться на ночь.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="recipe">
+    <div class="recipe-header" onclick="toggleRecipe(this)">
+      <span>🍫 Шоколадный «Брауни»</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="recipe-body">
+      <div class="recipe-content-inner">
+        <h4>Ингредиенты:</h4>
+        <ul>
+          <li>Тёмный шоколад — 200 г</li>
+          <li>Сливочное масло — 150 г</li>
+          <li>Сахар — 1 стакан</li>
+          <li>Яйца — 4 шт.</li>
+          <li>Мука — 100 г</li>
+        </ul>
+        <h4>Приготовление:</h4>
+        <ol>
+          <li>Растопи шоколад с маслом.</li>
+          <li>Взбей яйца с сахаром, соедини с шоколадом.</li>
+          <li>Добавь муку, выпекай при 170°C около 30 минут.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="recipe">
+    <div class="recipe-header" onclick="toggleRecipe(this)">
+      <span>🍰 Наполеон домашний</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="recipe-body">
+      <div class="recipe-content-inner">
+        <h4>Ингредиенты:</h4>
+        <ul>
+          <li>Слоёное тесто — 1 кг</li>
+          <li>Молоко — 1 л</li>
+          <li>Яйца — 3 шт., Сахар — 1 стакан</li>
+          <li>Мука — 4 ст. л., Масло, Ваниль</li>
+        </ul>
+        <h4>Приготовление:</h4>
+        <ol>
+          <li>Испеки тонкие коржи из слоеного теста.</li>
+          <li>Свари заварной крем из молока, яиц, сахара и муки.</li>
+          <li>Щедро смажь коржи, дай пропитаться 6 часов.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FACTS ===== -->
+<section id="facts">
+  <h2 class="section-title">Интересные факты</h2>
+  <p class="section-subtitle">удивительное о сладком</p>
+  <div class="facts-grid">
+    <div class="fact">Самый большой торт весил более 58 тонн (США, 2005).</div>
+    <div class="fact">Свечи на торте начали задувать в Германии в XVIII веке.</div>
+    <div class="fact">В Японии популярны торты со вкусом сакуры и даже кальмара.</div>
+    <div class="fact">«Красный бархат» обязан цветом реакции соды с какао.</div>
+    <div class="fact">Шоколадный торт «Захер» придумал 16-летний ученик в 1832 году.</div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>Сделано с <span class="heart">♥</span> для всех сладкоежек</p>
+  <p style="margin-top:8px; font-size:0.9rem; opacity:0.8;">© 2026 «Всё о тортах»</p>
+</footer>
+
+<script>
+  // Плавный скролл
+  function scrollToSection(id) {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Улучшенный аккордеон
+  function toggleRecipe(header) {
+    const recipe = header.parentElement;
+    const body = recipe.querySelector('.recipe-body');
+    
+    // Закрываем другие открытые рецепты (по желанию, можно убрать этот блок)
+    document.querySelectorAll('.recipe.open').forEach(item => {
+      if (item !== recipe) {
+        item.classList.remove('open');
+        item.querySelector('.recipe-body').style.maxHeight = null;
+      }
+    });
+
+    // Переключаем текущий
+    recipe.classList.toggle('open');
+    
+    if (recipe.classList.contains('open')) {
+      // Устанавливаем высоту точно по контенту
+      body.style.maxHeight = body.scrollHeight + "px";
+    } else {
+      body.style.maxHeight = null;
+    }
+  }
+</script>
+</body>
+</html>
